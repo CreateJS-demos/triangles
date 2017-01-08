@@ -1,0 +1,74 @@
+
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title>三角形</title>
+		<style type="text/css">
+
+					body,html{
+						background: #000;
+						width: 100%;
+						height: 100%;
+						margin: 0;
+						overflow: hidden;
+					}
+					.box{
+						width:100%;
+						height:100%;
+					}
+				
+		</style>
+	</head>
+	<body>
+	<div class="box"></div>
+		<script src="js/jquery-1.11.3.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/easeljs-0.8.2.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/TweenMax.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/triangles.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+
+				var result = null;
+				$.ajax({
+					type:"get",
+					url:"data/ceshi.json",
+					dataType:"json",
+					success:function(data){
+						var triangles = new Widget.triangles(".box");
+						triangles.setConfig({
+							"boxElement": ".box",//组件容器
+							"labelField": "name",//组件文字的键名
+	                		"valueField": "value",//组件数据的键名
+	                		"fillColor":"rgba(28,141,209,0.6)",//组件填充色
+	                		"borderColor":"#009eff",//边框色
+	                		"HighlightColor":"#1fe5fc",//高亮色
+	                		"backgroundLineWidth":0.5,//背景线条宽度
+	                		"backgroundLineColor":"#1c8dd1",//背景线条颜色
+	                		"linepointer":"#ffe400",//背景方块颜色
+	                		"fontStyle":"12px Arial",//文字样式
+	                		"fontdefaultColor":"#61bdf4",//默认颜色
+	                		"fontHighlightColor":"#eae802",//高亮颜色
+	                		"left":40,
+	                		"top":30,
+	                		"bottom":80,
+	                		"right":0,
+	                		"rotation":-20
+						});
+						triangles.resize({
+							width:$(triangles.config.boxElement).width(),
+							height:$(triangles.config.boxElement).height()
+						});
+						$(window).on("resize",function(){
+							triangles.resize({
+								width:$(triangles.config.boxElement).width(),
+								height:$(triangles.config.boxElement).height()
+							});
+						});
+						triangles.setDataProvider(data);
+					}
+				});
+
+		</script>
+	</body>
+</html>
